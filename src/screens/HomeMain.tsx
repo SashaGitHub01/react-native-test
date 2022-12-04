@@ -1,11 +1,19 @@
 import React, { PropsWithChildren, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { HomeMainScreenProps } from ".";
 import Form from "../components/Form/Form";
 import List from "../components/List/List";
 import { ITodo, ITodoBody } from "../types/Todo.types";
 
-const Home: React.FC<PropsWithChildren> = ({}) => {
+interface HomeMainProps extends HomeMainScreenProps {}
+
+const HomeMain: React.FC<PropsWithChildren<HomeMainProps>> = ({
+  route,
+  navigation,
+}) => {
+  console.log(route);
+
   const [todos, setTodos] = useState<ITodo[]>([]);
 
   const onAddTodo = (todo: ITodoBody) => {
@@ -37,7 +45,17 @@ const Home: React.FC<PropsWithChildren> = ({}) => {
   return (
     <View style={styles.wrapper}>
       <View style={styles.head}>
-        <Text style={styles.title}>Test App</Text>
+        <Text style={styles.title}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate("Details", {
+                detail: "DEGEGE",
+              })
+            }
+          >
+            <Text>Go to Details page {`>`}</Text>
+          </Pressable>
+        </Text>
       </View>
       <SafeAreaView style={styles.safe}>
         <Form onAddTodo={onAddTodo} />
@@ -75,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default HomeMain;

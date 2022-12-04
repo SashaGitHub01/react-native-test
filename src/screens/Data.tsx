@@ -1,12 +1,26 @@
 import React, { PropsWithChildren } from "react";
-import { Text, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
+import { DataScreenProps } from ".";
 
-interface DataProps {}
-
-const Data: React.FC<PropsWithChildren<DataProps>> = ({}) => {
+const Data: React.FC<PropsWithChildren<DataScreenProps>> = ({
+  navigation,
+  route,
+}) => {
+  console.log(route.params);
   return (
     <View>
-      <Text>Data</Text>
+      <Pressable
+        onPress={() =>
+          navigation.navigate("Home", {
+            screen: "Main",
+            params: {
+              id: "2",
+            },
+          })
+        }
+      >
+        <Text>Go to Home page {`>`}</Text>
+      </Pressable>
     </View>
   );
 };
